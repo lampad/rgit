@@ -120,7 +120,6 @@ class Repo
     tree=new_tree(wdir)
     commit=new_commit(tree,message,parent)
     update_ref("#{ghead}",commit)
-    update_ref("latest",commit)
     return commit
   end
   def branch(name)
