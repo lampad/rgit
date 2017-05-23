@@ -112,7 +112,7 @@ class Repo
     f.puts nhead
     f.close
   end
-  def commit(wdir,message,parent=nil)
+  def commit(wdir,message)
     wdir.each do |name,contents|
       blob=new_blob(contents)
       wdir[name]=blob
