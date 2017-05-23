@@ -118,7 +118,11 @@ class Repo
       wdir[name]=blob
     end
     tree=new_tree(wdir)
-    commit=new_commit(tree,message,read_ref(ghead))
+    if !File.exists? "#{@dir}/refs/#{ghead}"
+      commit=new_commit(tree,message)
+    else
+      commit=new_commit(tree,message,read_ref(ghead))
+    end
     update_ref("#{ghead}",commit)
     return commit
   end
