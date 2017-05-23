@@ -197,19 +197,19 @@ def ltest()
   repo.checkout("release")
   puts "Checked out branch release:"
   log(repo)
-  rcommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi","version.txt"=>"10"},"Release commit",icommit)
+  rcommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi","version.txt"=>"10"},"Release commit")
   puts "Created release commit:"
   log(repo)
   repo.checkout("master")
   puts "Checked out branch master:"
   log(repo)
-  rcommit=repo.commit({"hello.txt"=>"Hello","hi.txt"=>"Hi",},"Hotfix commit",icommit)
+  rcommit=repo.commit({"hello.txt"=>"Hello","hi.txt"=>"Hi",},"Hotfix commit")
   puts "Created hotfix commit:"
   log(repo)
   repo.checkout("release")
   puts "Checked out branch release:"
   log(repo)
-  rcommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi","version.txt"=>"1.0"},"Release commit fix",icommit)
+  rcommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi","version.txt"=>"1.0"},"Release commit fix")
   puts "Created release commit fix commit:"
   log(repo)
 end
