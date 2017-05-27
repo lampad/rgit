@@ -186,7 +186,9 @@ def log(repo)
   end
 end
 def ltest()
-  FileUtils.rm_r "repo"
+  if File.exists? "repo"
+    FileUtils.rm_r "repo"
+  end
   repo=Repo.new("repo")
   icommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi"},"Initial commit")
   puts "Created initial commit:"
