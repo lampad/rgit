@@ -143,6 +143,21 @@ class Repo
       raise BranchError,"Branch #{name} does not exist"
     end
   end
+  def merge(name)
+    commit=read_ref("heads/#{name}")
+    while true
+      if commit==read_ref("#{ghead}")
+        update_ref("#{ghead}",read_ref("heads/#{name}"))
+        return
+      end
+      parent=commit_parent(commit)
+      if parent
+        commit=parent
+      else
+        break
+      end
+    end
+  end
   private
   def sha1(text)
     return Digest::SHA1.hexdigest(text)
@@ -215,4 +230,26 @@ def ltest()
   puts "Created release commit fix commit:"
   log(repo)
 end
-ltest()
+#ltest()
+if File.exists? "repo"
+  FileUtils.rm_r "repo"
+end
+repo=Repo.new("repo")
+icommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi"},"Initial commit")
+puts "Created initial commit:"
+log(repo) 
+repo.branch("release")
+puts "Created branch release:"
+log(repo)
+repo.checkout("release")
+puts "Checked out branch release:"
+log(repo)
+rcommit=repo.commit({"hello.txt"=>"hello","hi.txt"=>"hi","version.txt"=>"1.0"},"Release commit")
+puts "Created release commit:"
+log(repo)
+repo.checkout("master")
+puts "Checked out branch master:"
+log(repo)
+repo.merge("release")
+puts "Merged branch release:"
+log(repo)
