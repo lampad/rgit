@@ -40,12 +40,15 @@ class Repo
     end
     return new_obj("tree",string)
   end
-  def new_commit(tree,message,parent=nil)
+  def new_commit(tree,message,parent=nil,mergeparent=nil)
+    string="tree:#{tree}\nmessage:#{message}"
     if parent
-      hash=new_obj("commit","tree:#{tree}\nparent:#{parent}\nmessage:#{message}")
-    else
-      hash=new_obj("commit","tree:#{tree}\nmessage:#{message}")
+      string+="\nparent:#{parent}"
     end
+    if mergeparent
+      string+="\nmergeparent:#{mergeparent}"
+    end
+    hash=new_obj("commit",string)
     return hash
   end
   def commit_parent(hash)
