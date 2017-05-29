@@ -68,6 +68,16 @@ class Repo
     commit=chash
     return commit["message"]
   end
+  def commit_tree(hash)
+    commit=rd_obj(hash).split("\n")
+    chash={}
+    commit.each do |line|
+      sline=line.split(":")
+      chash[sline[0]]=sline[1]
+    end
+    commit=chash
+    return commit["tree"]
+  end
   def obj_type(hash)
     f=File.open("#{@dir}/objects/#{hash}","r")
     type=f.gets.chomp!
